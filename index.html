@@ -1097,39 +1097,85 @@
 </footer>
 </div>
 <script>
-<script>
-  // Find the progress bar and the text label next to it
-  const progressFill = document.querySelector('.bar-68');
-  // Assumes your text is inside a class named 'metric-value' or similar label
-  const percentText = document.querySelector('.metric-header span:last-child'); 
+document.addEventListener("DOMContentLoaded", () => {
+  // --- PART A: INTERACTIVE METRIC INCREMENTER ---
+  // Scan the document text arrays to locate where the "68%" string sits
+  const allTextNodes = [];
+  const walk = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+  while(walk.nextNode()) allTextNodes.push(walk.currentNode);
 
-  if (progressFill) {
-    // Wait for the 2-second CSS animation to finish loading
-    progressFill.addEventListener('animationend', () => {
-      if (percentText) {
-        percentText.textContent = "100%";
-        percentText.style.color = "#10b981"; /* Turns text green to match */
-        percentText.style.transition = "color 0.3s ease";
-      }
-    });
+  // Target the exact telemetry nodes for the loader status
+  const targetPercentNode = allTextNodes.find(node => node.nodeValue.trim() === "68%");
+  const contextTextNode = allTextNodes.find(node => node.nodeValue.includes("Syncing repository history"));
+
+  // Find the structural visual bar block sitting next to the numeric values
+  const allDivs = Array.from(document.querySelectorAll('div'));
+  const visualProgressBar = allDivs.find(div => {
+    const style = window.getComputedStyle(div);
+    return div.offsetWidth > 0 && (div.className.includes('progress') || style.width.includes('68%') || div.style.width === '68%');
+  });
+
+  if (visualProgressBar) {
+    // Inject our keyframe engine class onto the matching element container
+    visualProgressBar.style.width = '68%'; 
+    setTimeout(() => {
+      visualProgressBar.classList.add('animate-sprint-fill');
+    }, 500);
   }
 
-  // Monitor sidebar element changes
-  const navButtons = document.querySelectorAll('.nav-btn, [data-target]');
-  const dashboardPanels = document.querySelectorAll('.tab-panel, [id]');
+  // Handle the text counting transitions cleanly over 2.5 seconds
+  if (targetPercentNode) {
+    let currentPercent = 68;
+    const endPercent = 100;
+    const duration = 2500; 
+    const stepTime = Math.abs(Math.floor(duration / (endPercent - currentPercent)));
 
-  navButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      navButtons.forEach(btn => btn.classList.remove('active'));
-      dashboardPanels.forEach(panel => panel.classList.remove('active'));
+    setTimeout(() => {
+      const counterInterval = setInterval(() => {
+        currentPercent++;
+        targetPercentNode.nodeValue = currentPercent + "%";
+        
+        // Dynamically shift labels when reaching optimization limits
+        if (currentPercent === 100) {
+          clearInterval(counterInterval);
+          if (contextTextNode) {
+            contextTextNode.nodeValue = "api-service: Sync complete! All PR metrics unified. ";
+          }
+          if (targetPercentNode.parentElement) {
+            targetPercentNode.parentElement.style.color = "#10b981";
+            targetPercentNode.parentElement.style.fontWeight = "bold";
+          }
+        }
+      }, stepTime);
+    }, 500);
+  }
 
-      button.classList.add('active');
-      const targetId = button.getAttribute('data-target');
-      if(targetId) {
-        document.getElementById(targetId).classList.add('active');
+  // --- PART B: MULTI-TAB NAVIGATION ROUTER ---
+  // Select navigation buttons and elements containing event dataset targets
+  const navTriggers = document.querySelectorAll('.nav-btn, [data-target], aside button, aside a');
+  const viewPanels = document.querySelectorAll('.tab-panel, [id^="panel-"], main section');
+
+  navTriggers.forEach((trigger, index) => {
+    trigger.addEventListener('click', (e) => {
+      // Clear visual layouts
+      navTriggers.forEach(t => t.classList.remove('active', 'bg-gray-800', 'text-white'));
+      viewPanels.forEach(p => p.classList.remove('active'));
+
+      // Apply focus arrays to current element interactions
+      trigger.classList.add('active');
+      
+      const destinationId = trigger.getAttribute('data-target');
+      const directTarget = document.getElementById(destinationId);
+      
+      if (directTarget) {
+        directTarget.classList.add('active');
+      } else if (viewPanels[index]) {
+        // Fallback mapping router if raw IDs are omitted from target datasets
+        viewPanels[index].classList.add('active');
       }
     });
   });
-</script>
+});
+
 
 </body></html>
