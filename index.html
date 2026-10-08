@@ -1177,5 +1177,83 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+document.addEventListener("DOMContentLoaded", () => {
+  // --- PART 1: THE DYNAMIC 100% METRIC INCREMENTER ---
+  const allTextNodes = [];
+  const walk = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+  while(walk.nextNode()) allTextNodes.push(walk.currentNode);
+
+  const targetPercentNode = allTextNodes.find(node => node.nodeValue.trim() === "68%");
+  const contextTextNode = allTextNodes.find(node => node.nodeValue.includes("Syncing repository history"));
+
+  const allDivs = Array.from(document.querySelectorAll('div'));
+  const visualProgressBar = allDivs.find(div => {
+    const style = window.getComputedStyle(div);
+    return div.offsetWidth > 0 && (div.className.includes('progress') || style.width.includes('68%') || div.style.width === '68%');
+  });
+
+  if (visualProgressBar) {
+    visualProgressBar.style.width = '68%';
+  }
+
+  if (targetPercentNode) {
+    let currentPercent = 68;
+    const endPercent = 100;
+    const duration = 2000; 
+    const stepTime = Math.abs(Math.floor(duration / (endPercent - currentPercent)));
+
+    setTimeout(() => {
+      const counterInterval = setInterval(() => {
+        currentPercent++;
+        targetPercentNode.nodeValue = currentPercent + "%";
+        
+        // Push the loading bar width incrementally alongside the numbers
+        if (visualProgressBar) {
+          visualProgressBar.style.setProperty('width', currentPercent + '%', 'important');
+        }
+
+        // When it reaches 100% complete, turn the elements solid emerald green
+        if (currentPercent === endPercent) {
+          clearInterval(counterInterval);
+          if (visualProgressBar) {
+            visualProgressBar.style.setProperty('width', '100%', 'important');
+            visualProgressBar.style.backgroundColor = '#10b981';
+          }
+          if (contextTextNode) {
+            contextTextNode.nodeValue = "api-service: Sync complete! All PR metrics unified. ";
+          }
+          if (targetPercentNode.parentElement) {
+            targetPercentNode.parentElement.style.color = "#10b981";
+            targetPercentNode.parentElement.style.fontWeight = "bold";
+          }
+        }
+      }, stepTime);
+    }, 500);
+  }
+
+  // --- PART 2: THE URL PATH-AWARE SIDEBAR ---
+  // Read the browser's current link path to determine which button should stay open/active
+  const currentPath = window.location.pathname;
+  
+  // Find all links inside your left sidebar layout
+  const sidebarLinks = document.querySelectorAll('aside a, aside button');
+  
+  sidebarLinks.forEach(link => {
+    const linkHref = link.getAttribute('href') || link.getAttribute('data-target');
+    
+    // If the sidebar button matches the current open page, force-highlight it
+    if (linkHref && currentPath.includes(linkHref)) {
+      link.classList.add('active', 'bg-gray-800', 'text-white');
+    }
+    
+    // Ensure clicking the buttons switches paths natively
+    link.addEventListener('click', (e) => {
+      if (linkHref && !linkHref.startsWith('#')) {
+        // Allow the application router to switch pages cleanly
+        window.location.pathname = linkHref;
+      }
+    });
+  });
+});
 </script>
 </body></html>
