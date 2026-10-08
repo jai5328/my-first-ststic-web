@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TeamPulse - Developer Analytics &amp; Sprint Overview</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary-fixed-dim": "#c0c1ff",
+            "surface": "#10141a",
+            "on-secondary-fixed": "#23005c",
+            "primary-container": "#8083ff",
+            "background": "#10141a",
+            "tertiary": "#4edea3",
+            "surface-bright": "#353940",
+            "primary": "#c0c1ff",
+            "inverse-on-surface": "#2d3137",
+            "on-error-container": "#ffdad6",
+            "surface-tint": "#c0c1ff",
+            "error-container": "#93000a",
+            "tertiary-fixed": "#6ffbbe",
+            "surface-container-high": "#262a31",
+            "on-error": "#690005",
+            "on-surface": "#dfe2eb",
+            "on-tertiary": "#003824",
+            "surface-container": "#1c2026",
+            "secondary-container": "#571bc1",
+            "secondary": "#d0bcff",
+            "secondary-fixed-dim": "#d0bcff",
+            "secondary-fixed": "#e9ddff",
+            "surface-container-lowest": "#0a0e14",
+            "on-primary-fixed": "#07006c",
+            "on-background": "#dfe2eb",
+            "on-secondary-container": "#c4abff",
+            "on-tertiary-fixed-variant": "#005236",
+            "primary-fixed": "#e1e0ff",
+            "surface-dim": "#10141a",
+            "error": "#ffb4ab",
+            "surface-variant": "#31353c",
+            "surface-container-highest": "#31353c",
+            "on-tertiary-fixed": "#002113",
+            "inverse-surface": "#dfe2eb",
+            "outline-variant": "#464554",
+            "outline": "#908fa0",
+            "on-primary-fixed-variant": "#2f2ebe",
+            "inverse-primary": "#494bd6",
+            "on-surface-variant": "#c7c4d7",
+            "on-primary": "#1000a9",
+            "tertiary-container": "#00885d",
+            "on-primary-container": "#0d0096",
+            "on-secondary-fixed-variant": "#5516be",
+            "on-tertiary-container": "#000703",
+            "on-secondary": "#3c0091",
+            "surface-container-low": "#181c22",
+            "tertiary-fixed-dim": "#4edea3"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter-desktop": "1.5rem",
+            "space-sm": "0.5rem",
+            "margin-desktop": "2rem",
+            "gutter": "1rem",
+            "space-xs": "0.25rem",
+            "space-lg": "1rem",
+            "space-md": "0.75rem",
+            "space-xl": "1.5rem",
+            "margin": "1rem"
+          },
+          "fontFamily": {
+            "body-sm": ["Inter"],
+            "headline-xl-mobile": ["Inter"],
+            "label-caps": ["Inter"],
+            "mono-lg": ["JetBrains Mono"],
+            "headline-xl": ["Inter"],
+            "headline-md": ["Inter"],
+            "headline-sm": ["Inter"],
+            "body-lg": ["Inter"],
+            "mono-sm": ["JetBrains Mono"],
+            "mono-xs": ["JetBrains Mono"],
+            "headline-lg": ["Inter"],
+            "body-md": ["Inter"]
+          },
+          "fontSize": {
+            "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "headline-xl-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "600" }],
+            "mono-lg": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+            "headline-xl": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+            "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-sm": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "mono-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+            "mono-xs": ["11px", { "lineHeight": "14px", "fontWeight": "400" }],
+            "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      font-size: 1.15rem;
+      line-height: 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #464554;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body-md text-body-md min-h-screen flex selection:bg-primary selection:text-on-primary">
+<!-- ==================== SIDEBAR COMPONENT ==================== -->
+<aside class="fixed top-0 left-0 h-screen w-64 border-r border-outline-variant bg-surface flex flex-col justify-between p-space-md z-50 select-none">
+<div class="flex flex-col gap-space-md">
+<!-- Brand Header -->
+<div class="flex items-center justify-between px-space-xs pb-space-xs">
+<div class="text-headline-md font-headline-md font-bold text-on-surface flex items-center gap-space-xs">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high border border-outline-variant flex items-center justify-center text-primary relative">
+<span class="material-symbols-outlined" data-icon="hub">hub</span>
+<span class="absolute -top-1 -right-1 flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-tertiary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-tertiary"></span>
+</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="tracking-tight">TeamPulse</span>
+<span class="text-mono-xs font-mono-xs px-1.5 py-0.5 rounded bg-surface-container-highest border border-outline-variant text-primary font-medium">PRO</span>
+</div>
+</div>
+</div>
+<!-- Project Switcher Dropdown Button -->
+<div class="bg-surface-container-low border border-outline-variant rounded-lg p-space-sm flex items-center justify-between hover:bg-surface-container transition-colors cursor-pointer group">
+<div class="flex items-center gap-space-sm overflow-hidden">
+<div class="w-6 h-6 rounded bg-surface-variant flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="deployed_code">deployed_code</span>
+</div>
+<div class="flex flex-col truncate">
+<span class="text-body-sm font-body-sm text-on-surface font-medium truncate">frontend-app</span>
+<span class="text-mono-xs font-mono-xs text-outline">8 branches • main</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-on-surface transition-colors" data-icon="unfold_more">unfold_more</span>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-1">
+<!-- Overview (Active) -->
+<a class="flex items-center justify-between px-space-md py-space-sm rounded-lg bg-surface-container-high text-primary font-headline-sm border border-outline-variant/60 shadow-sm transition-transform active:scale-95" href="#overview">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Overview</span>
+</div>
+<span class="text-mono-xs font-mono-xs px-1.5 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/30 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+            Live
+          </span>
+</a>
+<!-- Contributions -->
+<a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors active:scale-95" href="#contributions">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined" data-icon="bar_chart">bar_chart</span>
+<span>Contributions</span>
+</div>
+<span class="text-label-caps font-label-caps px-1.5 py-0.2 rounded bg-surface-container-highest text-on-surface-variant">4 active</span>
+</a>
+<!-- Branches -->
+<a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors active:scale-95" href="#branches">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined" data-icon="fork_right">fork_right</span>
+<span>Branches</span>
+</div>
+<span class="text-mono-xs font-mono-xs px-1.5 py-0.2 rounded bg-surface-container-highest text-outline">8</span>
+</a>
+<!-- Pull Requests -->
+<a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors active:scale-95" href="#pull-requests">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined" data-icon="merge">merge</span>
+<span>Pull Requests</span>
+</div>
+<span class="text-mono-xs font-mono-xs px-1.5 py-0.2 rounded bg-surface-container-highest text-error font-medium">3 pending</span>
+</a>
+<!-- Deadlines -->
+<a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors active:scale-95" href="#deadlines">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined" data-icon="schedule">schedule</span>
+<span>Deadlines</span>
+</div>
+<span class="text-mono-xs font-mono-xs px-1.5 py-0.2 rounded bg-surface-container-highest text-on-surface-variant">2 soon</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors active:scale-95" href="#settings">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</div>
+</a>
+</nav>
+<!-- Sync Status Box -->
+<div class="p-space-sm rounded-lg bg-surface-container-lowest border border-outline-variant/50 flex flex-col gap-1.5 mt-2">
+<div class="flex items-center justify-between text-mono-xs font-mono-xs text-outline">
+<span class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+            GitHub Sync
+          </span>
+<span class="text-on-surface-variant">2m ago</span>
+</div>
+<div class="w-full bg-surface-variant h-1 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full w-full"></div>
+</div>
+</div>
+</div>
+<!-- Bottom Section / Profile -->
+<div class="flex flex-col gap-space-xs pt-space-sm border-t border-outline-variant">
+<div class="flex items-center justify-between px-space-sm py-1.5 rounded-lg hover:bg-surface-container transition-colors cursor-pointer">
+<div class="flex items-center gap-space-sm">
+<img class="w-8 h-8 rounded-full border border-outline-variant object-cover" data-alt="A portrait photograph of Daniel, a modern software engineer wearing dark technical apparel with subtle violet ambient backlighting in a minimalist development workstation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqIZGdSO1ReFcrfedph3-oNHuUxkPyNmVc_0_RiOJfe7Xpihb-acoaQEPqdXdg_Q6hhK1NkSyXdMPPNockPn08M1E4XjJEuC3aJczGSYZor3HZMXy5MuYF1KWXZGv4ES1P8us4dB42Abn5GQdjcPrt3Vunlxu603jQuTGYT34hpe21mGRjGgFvJ1lv18mAerZAl29KITp6u_YAZBFPP9Dhf6aNqBgbbMfwrz_USi0Y"/>
+<div class="flex flex-col">
+<span class="text-body-sm font-body-sm font-semibold text-on-surface">Daniel K.</span>
+<span class="text-mono-xs font-mono-xs text-outline">@danielk</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline hover:text-on-surface" data-icon="chevron_left">chevron_left</span>
+</div>
+</div>
+</aside>
+<!-- ==================== MAIN CONTENT WRAPPER ==================== -->
+<div class="pl-64 flex-1 flex flex-col min-w-0 bg-background">
+<!-- Top Command Bar -->
+<header class="flex justify-between items-center w-full px-gutter-desktop py-space-sm sticky top-0 z-40 backdrop-blur-md bg-surface-container-low/90 border-b border-outline-variant">
+<!-- Search Input -->
+<div class="flex items-center gap-space-md w-96">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg pl-9 pr-14 py-1.5 text-body-sm font-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="Search branches, PRs, commits, or members..." type="text"/>
+<div class="absolute right-2.5 top-1/2 -translate-y-1/2 flex items-center">
+<span class="text-mono-xs font-mono-xs px-1.5 py-0.5 rounded bg-surface-variant border border-outline-variant text-outline">⌘K</span>
+</div>
+</div>
+</div>
+<!-- Segmented Date Filter -->
+<div class="flex items-center bg-surface-container-lowest border border-outline-variant rounded-lg p-0.5 text-body-sm font-body-sm">
+<button class="px-space-sm py-space-xs text-on-surface-variant hover:text-on-surface rounded transition-colors">7d</button>
+<button class="px-space-sm py-space-xs text-on-surface bg-surface-container-high rounded font-headline-sm shadow-xs border border-outline-variant/60">30d</button>
+<button class="px-space-sm py-space-xs text-on-surface-variant hover:text-on-surface rounded transition-colors">90d</button>
+<button class="px-space-sm py-space-xs text-on-surface-variant hover:text-on-surface rounded transition-colors">Sprint 4</button>
+<button class="px-space-sm py-space-xs text-on-surface-variant hover:text-on-surface rounded flex items-center gap-1 transition-colors">
+<span>Custom</span>
+<span class="material-symbols-outlined text-xs" data-icon="arrow_drop_down">arrow_drop_down</span>
+</button>
+</div>
+<!-- Trailing Action Cluster -->
+<div class="flex items-center gap-space-sm">
+<!-- Edit Layout Toggle -->
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-outline-variant bg-surface-container text-body-sm font-body-sm text-on-surface hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-primary" data-icon="dashboard_customize">dashboard_customize</span>
+<span class="font-medium">Edit layout</span>
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+</button>
+<!-- Dark Mode Toggle -->
+<button class="w-8 h-8 rounded-lg border border-outline-variant bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="dark_mode">dark_mode</span>
+</button>
+<!-- Notification Bell -->
+<button class="w-8 h-8 rounded-lg border border-outline-variant bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high relative transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="notifications">notifications</span>
+<span class="absolute 1 top-1.5 right-1.5 w-2 h-2 rounded-full bg-error ring-2 ring-surface"></span>
+</button>
+<!-- Connect Repo Primary CTA -->
+<button class="flex items-center gap-2 px-space-md py-1.5 rounded-lg bg-primary-container hover:bg-primary-container/90 text-on-primary font-headline-sm shadow-sm transition-transform active:scale-95">
+<span class="material-symbols-outlined" data-icon="add_link">add_link</span>
+<span class="text-body-sm font-semibold text-surface-container-lowest">Connect repo</span>
+</button>
+</div>
+</header>
+<!-- Sync In-Progress Banner (Micro-Status notification) -->
+<div class="px-margin-desktop pt-space-md">
+<div class="w-full bg-surface-container-low border border-outline-variant/70 rounded-xl px-4 py-2.5 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 rounded bg-surface-variant flex items-center justify-center text-primary animate-spin">
+<span class="material-symbols-outlined text-sm" data-icon="sync">sync</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-mono-xs font-mono-xs text-primary font-medium">api-service:</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">Syncing repository history &amp; PR metrics... (68% complete)</span>
+</div>
+</div>
+<div class="flex items-center gap-3 w-48">
+<div class="w-full bg-surface-variant h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[68%] rounded-full"></div>
+</div>
+<span class="text-mono-xs font-mono-xs text-outline">68%</span>
+</div>
+</div>
+</div>
+<!-- ==================== DASHBOARD CANVAS ==================== -->
+<main class="p-margin-desktop space-y-gutter-desktop">
+<!-- WIDGET 1: SUMMARY METRICS ROW (12 columns) -->
+<section class="grid grid-cols-12 gap-gutter-desktop">
+<!-- Metric 1: Commits -->
+<div class="col-span-3 bg-surface-container-low border border-outline-variant rounded-xl p-4 flex flex-col justify-between hover:border-primary/50 transition-all shadow-sm">
+<div class="flex items-center justify-between text-outline">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm cursor-grab" data-icon="drag_indicator">drag_indicator</span>
+<span class="text-label-caps font-label-caps tracking-wider uppercase">Commits</span>
+</div>
+<span class="material-symbols-outlined text-sm text-on-surface-variant" data-icon="commit">commit</span>
+</div>
+<div class="flex items-baseline justify-between mt-3">
+<span class="text-headline-xl font-headline-xl text-on-surface">142</span>
+<span class="text-mono-xs font-mono-xs px-2 py-0.5 rounded-full bg-tertiary-container/30 text-tertiary border border-tertiary/40 flex items-center gap-0.5">
+<span class="material-symbols-outlined text-xs" data-icon="trending_up">trending_up</span>
+              +18%
+            </span>
+</div>
+<span class="text-mono-xs font-mono-xs text-outline mt-1">vs. previous 30-day window</span>
+</div>
+<!-- Metric 2: PRs Merged -->
+<div class="col-span-3 bg-surface-container-low border border-outline-variant rounded-xl p-4 flex flex-col justify-between hover:border-primary/50 transition-all shadow-sm">
+<div class="flex items-center justify-between text-outline">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm cursor-grab" data-icon="drag_indicator">drag_indicator</span>
+<span class="text-label-caps font-label-caps tracking-wider uppercase">PRs Merged</span>
+</div>
+<span class="material-symbols-outlined text-sm text-tertiary" data-icon="merge">merge</span>
+</div>
+<div class="flex items-baseline justify-between mt-3">
+<span class="text-headline-xl font-headline-xl text-on-surface">24</span>
+<span class="text-mono-xs font-mono-xs px-2 py-0.5 rounded-full bg-tertiary-container/30 text-tertiary border border-tertiary/40 flex items-center gap-0.5">
+<span class="material-symbols-outlined text-xs" data-icon="trending_up">trending_up</span>
+              +8%
+            </span>
+</div>
+<span class="text-mono-xs font-mono-xs text-outline mt-1">4.2h median merge time</span>
+</div>
+<!-- Metric 3: Reviews Given -->
+<div class="col-span-3 bg-surface-container-low border border-outline-variant rounded-xl p-4 flex flex-col justify-between hover:border-primary/50 transition-all shadow-sm">
+<div class="flex items-center justify-between text-outline">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm cursor-grab" data-icon="drag_indicator">drag_indicator</span>
+<span class="text-label-caps font-label-caps tracking-wider uppercase">Reviews Given</span>
+</div>
+<span class="material-symbols-outlined text-sm text-primary" data-icon="rate_review">rate_review</span>
+</div>
+<div class="flex items-baseline justify-between mt-3">
+<span class="text-headline-xl font-headline-xl text-on-surface">56</span>
+<span class="text-mono-xs font-mono-xs px-2 py-0.5 rounded-full bg-tertiary-container/30 text-tertiary border border-tertiary/40 flex items-center gap-0.5">
+<span class="material-symbols-outlined text-xs" data-icon="trending_up">trending_up</span>
+              +32%
+            </span>
+</div>
+<span class="text-mono-xs font-mono-xs text-outline mt-1">94% response rate within 24h</span>
+</div>
+<!-- Metric 4: Open PRs -->
+<div class="col-span-3 bg-surface-container-low border border-outline-variant rounded-xl p-4 flex flex-col justify-between hover:border-primary/50 transition-all shadow-sm">
+<div class="flex items-center justify-between text-outline">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm cursor-grab" data-icon="drag_indicator">drag_indicator</span>
+<span class="text-label-caps font-label-caps tracking-wider uppercase">Open PRs</span>
+</div>
+<span class="material-symbols-outlined text-sm text-secondary" data-icon="call_split">call_split</span>
+</div>
+<div class="flex items-baseline justify-between mt-3">
+<span class="text-headline-xl font-headline-xl text-on-surface">7</span>
+<span class="text-mono-xs font-mono-xs px-2 py-0.5 rounded-full bg-surface-variant text-on-surface-variant border border-outline-variant flex items-center gap-0.5">
+<span class="material-symbols-outlined text-xs" data-icon="remove">remove</span>
+              +2 pending
+            </span>
+</div>
+<span class="text-mono-xs font-mono-xs text-error mt-1 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+            3 require urgent action
+          </span>
+</div>
+</section>
+<!-- ROW 2: CONTRIBUTION HEATMAP (8 COLS) + CONTRIBUTIONS BY MEMBER (4 COLS) -->
+<section class="grid grid-cols-12 gap-gutter-desktop">
+<!-- WIDGET 2: TEAM CONTRIBUTION HEATMAP (8 COLS) -->
+<div class="col-span-8 bg-surface-container-low border border-outline-variant rounded-xl p-5 flex flex-col justify-between shadow-sm relative">
+<!-- Widget Header -->
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant/60">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline cursor-grab" data-icon="drag_indicator">drag_indicator</span>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Team Contribution Heatmap</h2>
+</div>
+<!-- Sub tabs -->
+<div class="flex items-center gap-1 bg-surface-container-lowest border border-outline-variant rounded-lg p-0.5 text-mono-xs font-mono-xs">
+<button class="px-2 py-1 rounded bg-surface-container-high text-on-surface">All</button>
+<button class="px-2 py-1 rounded text-outline hover:text-on-surface">frontend-app</button>
+<button class="px-2 py-1 rounded text-outline hover:text-on-surface">api-service</button>
+</div>
+</div>
+<!-- Heatmap Canvas Matrix -->
+<div class="py-4 relative">
+<div class="flex text-mono-xs font-mono-xs text-outline mb-2 pl-6 justify-between pr-4">
+<span>Week 37</span>
+<span>Week 38</span>
+<span>Week 39</span>
+<span>Week 40</span>
+<span>Week 41 (Current)</span>
+</div>
+<!-- Days & Grid -->
+<div class="flex gap-2">
+<div class="flex flex-col justify-between text-mono-xs font-mono-xs text-outline pr-1 text-right">
+<span>Mon</span>
+<span>Wed</span>
+<span>Fri</span>
+<span>Sun</span>
+</div>
+<!-- 20-week cell container -->
+<div class="grid grid-flow-col grid-rows-7 gap-1.5 flex-1">
+<!-- Column 1 -->
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/40"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/60"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/80"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<!-- Column 2 -->
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/50"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/90"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-tertiary-container/60"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/60"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<!-- Column 3 -->
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/70"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/90"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/40"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<!-- Column 4 -->
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/40"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-tertiary-container/80"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/80"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/90"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<!-- Column 5 -->
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/80"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/90"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/70"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/50"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<!-- Column 6 -->
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/60"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/80"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/50"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-tertiary-container/70"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<!-- Column 7 -->
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/80"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/90"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/60"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<!-- Column 8 (Target Tooltip Hover day) -->
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/90"></div>
+<!-- Peak Day with active ring & Tooltip -->
+<div class="w-3.5 h-3.5 rounded-xs bg-tertiary ring-2 ring-primary relative group">
+<!-- Realistic Floating Tooltip -->
+<div class="absolute -top-12 -left-24 z-30 pointer-events-none bg-surface-container-highest/95 backdrop-blur-md border border-outline-variant text-on-surface px-2.5 py-1.5 rounded-lg shadow-xl text-mono-xs font-mono-xs whitespace-nowrap flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span><strong>Aisha &amp; Meera:</strong> 14 commits, 3 PRs merged on Oct 14</span>
+</div>
+</div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/70"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/90"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<!-- Column 9 -->
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/50"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/80"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/60"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<!-- Column 10 -->
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/80"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/70"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-tertiary-container/90"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/50"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<!-- Column 11 -->
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/60"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/90"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/40"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<!-- Column 12 -->
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/70"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/80"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/90"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/50"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<!-- Column 13 -->
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/80"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/60"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-tertiary-container/80"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<!-- Column 14 (Active sprint days) -->
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/90"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-tertiary"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-primary-container/80"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-3.5 h-3.5 rounded-xs bg-surface-container-high"></div>
+</div>
+</div>
+</div>
+<!-- Bottom Legend & Quick Stats -->
+<div class="flex items-center justify-between pt-3 border-t border-outline-variant/60 text-mono-xs font-mono-xs text-outline">
+<div class="flex items-center gap-2">
+<span class="text-on-surface-variant font-medium">1,248 total contributions this sprint</span>
+<span>•</span>
+<span class="text-outline">Peak activity: Tuesdays 2-5pm</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span>Less</span>
+<div class="w-2.5 h-2.5 rounded-xs bg-surface-container-high"></div>
+<div class="w-2.5 h-2.5 rounded-xs bg-primary-container/40"></div>
+<div class="w-2.5 h-2.5 rounded-xs bg-primary-container/70"></div>
+<div class="w-2.5 h-2.5 rounded-xs bg-primary-container"></div>
+<div class="w-2.5 h-2.5 rounded-xs bg-tertiary"></div>
+<span>More</span>
+</div>
+</div>
+</div>
+<!-- WIDGET 3: CONTRIBUTIONS BY MEMBER (4 COLS) -->
+<div class="col-span-4 bg-surface-container-low border border-outline-variant rounded-xl p-5 flex flex-col justify-between shadow-sm">
+<!-- Header -->
+<div>
+<div class="flex items-center justify-between pb-2 border-b border-outline-variant/60">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline cursor-grab" data-icon="drag_indicator">drag_indicator</span>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Contributions by Member</h2>
+</div>
+<span class="material-symbols-outlined text-outline text-sm cursor-help" data-icon="info">info</span>
+</div>
+<p class="text-mono-xs font-mono-xs text-outline italic mt-1.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="balance">balance</span>
+              Indicative only, not a performance score.
+            </p>
+</div>
+<!-- Member Progress Bars List -->
+<div class="flex flex-col gap-3.5 my-2">
+<!-- Member 1: Aisha -->
+<div class="space-y-1">
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<div class="flex items-center gap-2">
+<img class="w-5 h-5 rounded-full object-cover border border-outline-variant" data-alt="A candid profile photo of Aisha, a female tech lead engineer with glasses looking thoughtfully at multi-monitor terminal displays in an atmospheric dark office." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDIU8mQYYr77-0msCUYfoMXGqIFDuiRAgIbwz1m8d25jc4uWjOH13l6-ZXAveHR0dg-kcTQ25e2sBNTPhnI1W8Po-y7hW6b5FC2QUGesGIlHglGZhkLFU-T7mM5A5iBcG1727fBrhWdzs4rCbeCnkA9XYOvSsMd3pKa7Dbin-xe9JqVMka36M9BjhxJD0QL2siTwO3Vdc3_dForjymHV5mXfSRXu3e7SlKTuJLu6j1"/>
+<span class="text-on-surface font-medium">Aisha</span>
+<span class="text-mono-xs font-mono-xs text-outline">(Tech Lead)</span>
+</div>
+<span class="text-mono-xs font-mono-xs text-on-surface-variant">48c • 12pr • 22rv</span>
+</div>
+<div class="w-full bg-surface-container-highest h-2 rounded-full overflow-hidden flex">
+<div class="bg-primary-container h-full w-[55%]"></div>
+<div class="bg-tertiary h-full w-[25%]"></div>
+<div class="bg-secondary h-full w-[20%]"></div>
+</div>
+</div>
+<!-- Member 2: Ravi -->
+<div class="space-y-1">
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<div class="flex items-center gap-2">
+<img class="w-5 h-5 rounded-full object-cover border border-outline-variant" data-alt="A portrait shot of Ravi, a backend software engineer in a minimal dark crewneck, smiling subtly under cold studio key lighting with code editors blurred in the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_FK_w_V7g1ZKf8kCZ2FZLs_3F7xnIKtgrdxbfsd7V0BJS84vnGh-9pn8jmE15eRleQEAdM8V7kO_xvfH-6BYk-E0Jw_VyCikjFnPJrHWuGX9jnuwmLq7cdeIgdJ-dMOdV3vvF60ZnKew98q6VCFU55CqRLYtFMf4m4UEyfvB60JTnLBgnBMKm08i9RdpmD4f-0S_MgAQwXGdkJjXgDjJFcX4weUkPRoZ2ICjiQjAX"/>
+<span class="text-on-surface font-medium">Ravi</span>
+<span class="text-mono-xs font-mono-xs text-outline">(Backend)</span>
+</div>
+<span class="text-mono-xs font-mono-xs text-on-surface-variant">39c • 8pr • 16rv</span>
+</div>
+<div class="w-full bg-surface-container-highest h-2 rounded-full overflow-hidden flex">
+<div class="bg-primary-container h-full w-[48%]"></div>
+<div class="bg-tertiary h-full w-[22%]"></div>
+<div class="bg-secondary h-full w-[30%]"></div>
+</div>
+</div>
+<!-- Member 3: Meera -->
+<div class="space-y-1">
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<div class="flex items-center gap-2">
+<img class="w-5 h-5 rounded-full object-cover border border-outline-variant" data-alt="A portrait of Meera, a female UI software engineer wearing minimalist modern headphones, illuminated by soft violet laptop glow in a high-tech collaborative workspace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFBf06Gs2SoNn7CgE9sQpzu2Q3G63PJNHf2EKh0zE5EXDGh9z5N4YvWqmYF9TDifQevgeA3De0U5sD0HpK-qrIwSdDJGE62lZ9EKkxEfik30BAWHsAxVsRtJHxGQSqP50PuR0UD-i8alz2EJT4rKcniPV4r9epWPZet8_Oioej-4NmIpMVENq76exwUJ-WtOhDg8AlGVA3sEXLxgYvNASM-5E9ySmS1GY4ulobzY6n"/>
+<span class="text-on-surface font-medium">Meera</span>
+<span class="text-mono-xs font-mono-xs text-outline">(Frontend)</span>
+</div>
+<span class="text-mono-xs font-mono-xs text-on-surface-variant">34c • 7pr • 11rv</span>
+</div>
+<div class="w-full bg-surface-container-highest h-2 rounded-full overflow-hidden flex">
+<div class="bg-primary-container h-full w-[52%]"></div>
+<div class="bg-tertiary h-full w-[24%]"></div>
+<div class="bg-secondary h-full w-[24%]"></div>
+</div>
+</div>
+<!-- Member 4: Daniel (You) -->
+<div class="space-y-1">
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<div class="flex items-center gap-2">
+<img class="w-5 h-5 rounded-full object-cover border border-outline-variant" data-alt="A portrait photo of Daniel, a fullstack developer focused intently on writing TypeScript code, surrounded by modern matte-black hardware." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3SgiSxLU4zXWJJo5gXXMAB6lynsNKxzFyXIym-M7OFLAKialEQFakhcgYj8foIIvu4VqF-z0yekf9eX0T01CqonBIpyXbUGD_twP7XB2625YdGAmnvxRqqeleTAN92iDDOECFaKqoyLOan1mk2PJzOGT2BarvaIPHzH-3ZSd5_Qu2LM4oWDaDCMTOz9TWYrZLQYfPgqCPzqTULGqxPZVFD_YCa9bNxsXfNhJv7rzJ"/>
+<span class="text-on-surface font-medium">Daniel</span>
+<span class="text-mono-xs font-mono-xs text-primary font-semibold">(You)</span>
+</div>
+<span class="text-mono-xs font-mono-xs text-on-surface-variant">21c • 4pr • 7rv</span>
+</div>
+<div class="w-full bg-surface-container-highest h-2 rounded-full overflow-hidden flex">
+<div class="bg-primary-container h-full w-[44%]"></div>
+<div class="bg-tertiary h-full w-[26%]"></div>
+<div class="bg-secondary h-full w-[30%]"></div>
+</div>
+</div>
+</div>
+<!-- Segment Legend -->
+<div class="flex items-center justify-between pt-2 border-t border-outline-variant/60 text-mono-xs font-mono-xs text-outline">
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-primary-container"></span> Commits</span>
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-tertiary"></span> PRs</span>
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-secondary"></span> Code Reviews</span>
+</div>
+</div>
+</section>
+<!-- ROW 3: NEEDS ATTENTION (5 COLS) + ACTIVE BRANCHES TABLE (7 COLS) -->
+<section class="grid grid-cols-12 gap-gutter-desktop">
+<!-- WIDGET 4: NEEDS ATTENTION PANEL (5 COLS) -->
+<div class="col-span-5 bg-surface-container-low border border-outline-variant rounded-xl p-5 flex flex-col justify-between shadow-sm">
+<!-- Header -->
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant/60">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline cursor-grab" data-icon="drag_indicator">drag_indicator</span>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Needs Attention</h2>
+</div>
+<span class="text-mono-xs font-mono-xs px-2 py-0.5 rounded-full bg-error-container text-on-error-container border border-error/30 font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-ping"></span>
+              3 blockers
+            </span>
+</div>
+<!-- Action Items List -->
+<div class="flex flex-col gap-3 my-2">
+<!-- Item 1: Waiting Review -->
+<div class="p-3 rounded-lg bg-surface-container border border-outline-variant/80 hover:border-outline-variant transition-all space-y-2">
+<div class="flex items-start justify-between">
+<div>
+<div class="flex items-center gap-2">
+<span class="text-mono-sm font-mono-sm text-primary font-medium">PR #84</span>
+<span class="text-mono-xs font-mono-xs text-outline px-1.5 py-0.2 rounded bg-surface-variant">fix/login-bug</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">Waiting on review for 2.4 days</p>
+</div>
+<span class="text-mono-xs font-mono-xs px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="schedule">schedule</span>
+                  Waiting 2d+
+                </span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-outline-variant/40 text-mono-xs font-mono-xs">
+<span class="text-outline">Assigned: <strong class="text-on-surface">Ravi</strong></span>
+<button class="px-2 py-1 rounded bg-surface-container-high hover:bg-surface-container-highest text-primary font-medium transition-colors border border-outline-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="send">send</span>
+                  Nudge reviewer
+                </button>
+</div>
+</div>
+<!-- Item 2: Failing CI -->
+<div class="p-3 rounded-lg bg-surface-container border border-error/30 hover:border-error/50 transition-all space-y-2">
+<div class="flex items-start justify-between">
+<div>
+<div class="flex items-center gap-2">
+<span class="text-mono-sm font-mono-sm text-primary font-medium">PR #91</span>
+<span class="text-mono-xs font-mono-xs text-outline px-1.5 py-0.2 rounded bg-surface-variant">feature/auth-flow</span>
+</div>
+<p class="text-body-sm font-body-sm text-error mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="cancel">cancel</span>
+                    CI checks failing: 2 tests failed in test-suite
+                  </p>
+</div>
+<span class="text-mono-xs font-mono-xs px-2 py-0.5 rounded-full bg-error-container/40 text-error border border-error/40 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="error">error</span>
+                  Failing CI
+                </span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-outline-variant/40 text-mono-xs font-mono-xs">
+<span class="text-outline">Author: <strong class="text-on-surface">Aisha</strong></span>
+<button class="px-2 py-1 rounded bg-error-container/20 hover:bg-error-container/40 text-error font-medium transition-colors border border-error/40 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="terminal">terminal</span>
+                  Inspect CI
+                </button>
+</div>
+</div>
+<!-- Item 3: Merge Conflict -->
+<div class="p-3 rounded-lg bg-surface-container border border-outline-variant/80 hover:border-outline-variant transition-all space-y-2">
+<div class="flex items-start justify-between">
+<div>
+<div class="flex items-center gap-2">
+<span class="text-mono-sm font-mono-sm text-primary font-medium">PR #78</span>
+<span class="text-mono-xs font-mono-xs text-outline px-1.5 py-0.2 rounded bg-surface-variant">chore/ci-update</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">Merge conflict with main branch</p>
+</div>
+<span class="text-mono-xs font-mono-xs px-2 py-0.5 rounded-full bg-error-container/20 text-error border border-error/30 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="warning">warning</span>
+                  Conflict
+                </span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-outline-variant/40 text-mono-xs font-mono-xs">
+<span class="text-outline">Author: <strong class="text-on-surface">Meera</strong></span>
+<button class="px-2 py-1 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-medium transition-colors border border-outline-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="call_merge">call_merge</span>
+                  Resolve in Web IDE
+                </button>
+</div>
+</div>
+</div>
+<div class="pt-2 text-center">
+<a class="text-mono-xs font-mono-xs text-primary hover:underline" href="#pull-requests">View all 7 pending team pull requests →</a>
+</div>
+</div>
+<!-- WIDGET 5: ACTIVE BRANCHES TABLE (7 COLS) -->
+<div class="col-span-7 bg-surface-container-low border border-outline-variant rounded-xl p-5 flex flex-col justify-between shadow-sm">
+<!-- Header & Quick Filters -->
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant/60">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline cursor-grab" data-icon="drag_indicator">drag_indicator</span>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Active Branches</h2>
+</div>
+<!-- Branch filter pills -->
+<div class="flex items-center gap-1 bg-surface-container-lowest border border-outline-variant rounded-lg p-0.5 text-mono-xs font-mono-xs">
+<button class="px-2 py-1 rounded text-outline hover:text-on-surface">All</button>
+<button class="px-2 py-1 rounded bg-surface-container-high text-on-surface font-medium">Active (5)</button>
+<button class="px-2 py-1 rounded text-outline hover:text-on-surface">Stale (2)</button>
+<button class="px-2 py-1 rounded text-outline hover:text-on-surface">Merged</button>
+</div>
+</div>
+<!-- Table Container -->
+<div class="overflow-x-auto py-2">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/60 text-label-caps font-label-caps text-outline uppercase">
+<th class="py-2 px-2 font-medium">Branch Name</th>
+<th class="py-2 px-2 font-medium">Author</th>
+<th class="py-2 px-2 font-medium text-center">Ahead / Behind</th>
+<th class="py-2 px-2 font-medium">Activity</th>
+<th class="py-2 px-2 font-medium">PR</th>
+<th class="py-2 px-2 font-medium text-right">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/40 text-body-sm font-body-sm">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container/60 transition-colors">
+<td class="py-2.5 px-2">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-xs text-outline" data-icon="fork_right">fork_right</span>
+<span class="text-mono-sm font-mono-sm text-on-surface font-medium">feature/auth-flow</span>
+</div>
+</td>
+<td class="py-2.5 px-2">
+<div class="flex items-center gap-1.5">
+<div class="w-5 h-5 rounded-full bg-primary/20 text-primary flex items-center justify-center text-mono-xs font-semibold">A</div>
+<span class="text-on-surface-variant">Aisha</span>
+</div>
+</td>
+<td class="py-2.5 px-2 text-center text-mono-xs font-mono-xs">
+<span class="text-tertiary">+4</span> / <span class="text-error">-1</span>
+</td>
+<td class="py-2.5 px-2 text-mono-xs font-mono-xs text-outline">14m ago</td>
+<td class="py-2.5 px-2 text-mono-xs font-mono-xs text-primary">#91</td>
+<td class="py-2.5 px-2 text-right">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-tertiary-container/30 text-tertiary border border-tertiary/40 text-mono-xs font-mono-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                      Active
+                    </span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container/60 transition-colors">
+<td class="py-2.5 px-2">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-xs text-outline" data-icon="fork_right">fork_right</span>
+<span class="text-mono-sm font-mono-sm text-on-surface font-medium">fix/login-bug</span>
+</div>
+</td>
+<td class="py-2.5 px-2">
+<div class="flex items-center gap-1.5">
+<div class="w-5 h-5 rounded-full bg-secondary/20 text-secondary flex items-center justify-center text-mono-xs font-semibold">R</div>
+<span class="text-on-surface-variant">Ravi</span>
+</div>
+</td>
+<td class="py-2.5 px-2 text-center text-mono-xs font-mono-xs">
+<span class="text-tertiary">+2</span> / <span class="text-outline">0</span>
+</td>
+<td class="py-2.5 px-2 text-mono-xs font-mono-xs text-outline">2h ago</td>
+<td class="py-2.5 px-2 text-mono-xs font-mono-xs text-primary">#84</td>
+<td class="py-2.5 px-2 text-right">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30 text-mono-xs font-mono-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                      Review
+                    </span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container/60 transition-colors">
+<td class="py-2.5 px-2">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-xs text-outline" data-icon="fork_right">fork_right</span>
+<span class="text-mono-sm font-mono-sm text-on-surface font-medium">chore/ci-update</span>
+</div>
+</td>
+<td class="py-2.5 px-2">
+<div class="flex items-center gap-1.5">
+<div class="w-5 h-5 rounded-full bg-tertiary/20 text-tertiary flex items-center justify-center text-mono-xs font-semibold">M</div>
+<span class="text-on-surface-variant">Meera</span>
+</div>
+</td>
+<td class="py-2.5 px-2 text-center text-mono-xs font-mono-xs">
+<span class="text-tertiary">+1</span> / <span class="text-error">-6</span>
+</td>
+<td class="py-2.5 px-2 text-mono-xs font-mono-xs text-outline">Yesterday</td>
+<td class="py-2.5 px-2 text-mono-xs font-mono-xs text-primary">#78</td>
+<td class="py-2.5 px-2 text-right">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-error-container/30 text-error border border-error/40 text-mono-xs font-mono-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                      Conflict
+                    </span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container/60 transition-colors">
+<td class="py-2.5 px-2">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-xs text-outline" data-icon="fork_right">fork_right</span>
+<span class="text-mono-sm font-mono-sm text-on-surface font-medium">feat/profile-card</span>
+</div>
+</td>
+<td class="py-2.5 px-2">
+<div class="flex items-center gap-1.5">
+<div class="w-5 h-5 rounded-full bg-primary-container/20 text-primary-container flex items-center justify-center text-mono-xs font-semibold">D</div>
+<span class="text-on-surface-variant">Daniel</span>
+</div>
+</td>
+<td class="py-2.5 px-2 text-center text-mono-xs font-mono-xs">
+<span class="text-tertiary">+8</span> / <span class="text-outline">0</span>
+</td>
+<td class="py-2.5 px-2 text-mono-xs font-mono-xs text-outline">3h ago</td>
+<td class="py-2.5 px-2 text-mono-xs font-mono-xs text-outline">—</td>
+<td class="py-2.5 px-2 text-right">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-tertiary-container/30 text-tertiary border border-tertiary/40 text-mono-xs font-mono-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                      Active
+                    </span>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container/60 transition-colors">
+<td class="py-2.5 px-2">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-xs text-outline" data-icon="fork_right">fork_right</span>
+<span class="text-mono-sm font-mono-sm text-outline font-medium">feat/dark-tokens</span>
+</div>
+</td>
+<td class="py-2.5 px-2">
+<div class="flex items-center gap-1.5">
+<div class="w-5 h-5 rounded-full bg-surface-variant text-outline flex items-center justify-center text-mono-xs font-semibold">M</div>
+<span class="text-outline">Meera</span>
+</div>
+</td>
+<td class="py-2.5 px-2 text-center text-mono-xs font-mono-xs">
+<span class="text-tertiary">+12</span> / <span class="text-outline">0</span>
+</td>
+<td class="py-2.5 px-2 text-mono-xs font-mono-xs text-outline">3d ago</td>
+<td class="py-2.5 px-2 text-mono-xs font-mono-xs text-secondary">#74</td>
+<td class="py-2.5 px-2 text-right">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary-container/30 text-secondary border border-secondary/40 text-mono-xs font-mono-xs">
+<span class="material-symbols-outlined text-xs" data-icon="done_all">done_all</span>
+                      Merged
+                    </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pt-2 flex items-center justify-between border-t border-outline-variant/60 text-mono-xs font-mono-xs text-outline">
+<span>Showing 5 of 8 repository branches</span>
+<a class="text-primary hover:underline" href="#branches">Explore Git graph →</a>
+</div>
+</div>
+</section>
+<!-- ROW 4: UPCOMING DEADLINES (6 COLS) + AI SPRINT SUMMARY (6 COLS) -->
+<section class="grid grid-cols-12 gap-gutter-desktop">
+<!-- WIDGET 6: UPCOMING MILESTONES & DEADLINES (6 COLS) -->
+<div class="col-span-6 bg-surface-container-low border border-outline-variant rounded-xl p-5 flex flex-col justify-between shadow-sm">
+<!-- Header -->
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant/60">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline cursor-grab" data-icon="drag_indicator">drag_indicator</span>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Upcoming Milestones &amp; Deadlines</h2>
+</div>
+<button class="text-mono-xs font-mono-xs text-primary hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="add">add</span>
+              New milestone
+            </button>
+</div>
+<!-- Milestones Cards -->
+<div class="flex flex-col gap-3.5 my-2">
+<!-- Milestone 1: MVP Demo -->
+<div class="p-4 rounded-lg bg-surface-container border border-outline-variant/80 space-y-3">
+<div class="flex items-start justify-between">
+<div>
+<div class="flex items-center gap-2">
+<h3 class="text-headline-sm font-headline-sm text-on-surface">MVP Demo</h3>
+<span class="text-mono-xs font-mono-xs px-2 py-0.5 rounded bg-surface-variant text-outline">Due in 6 days (Oct 22)</span>
+</div>
+<span class="text-body-sm font-body-sm text-outline">Client interactive walkthrough of core authentication &amp; repo ingestion</span>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-tertiary-container/30 text-tertiary border border-tertiary/40 text-mono-xs font-mono-xs font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                  On track
+                </span>
+</div>
+<!-- Progress bar & Task metrics -->
+<div class="space-y-1.5">
+<div class="flex items-center justify-between text-mono-xs font-mono-xs">
+<span class="text-on-surface-variant font-medium">18/25 tasks done</span>
+<span class="text-primary font-bold">72% complete</span>
+</div>
+<div class="w-full bg-surface-container-highest h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[72%] rounded-full"></div>
+</div>
+</div>
+<!-- Assignee Avatars -->
+<div class="flex items-center justify-between pt-1 text-mono-xs font-mono-xs text-outline">
+<div class="flex items-center -space-x-1.5">
+<img class="w-6 h-6 rounded-full border-2 border-surface object-cover" data-alt="A small circular avatar portrait of Aisha, tech lead on frontend-app team." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1E_2-0jZrrPMzScHSTrUhxgwy4yk2GP6Czj3YqcOfoQ3eJLuHuk3720K9yf65jv3Xt1rX02x6SYhHxdTKDCNB2pEmEAOIHvMwTO5G0Gs1r0NCcm941EQ59neG-kriERlNQjE-jszdWRVo440E2B08AWHFg9FLmjGp-Sp64GT89AO2HgCWcqPPH-oGoXfRVdko6xNoEhNpToYA58pzmsw9m-tRROnLHnZVg2dLBHV0"/>
+<img class="w-6 h-6 rounded-full border-2 border-surface object-cover" data-alt="A small circular avatar portrait of Daniel, fullstack engineer on frontend-app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8EeIzT4lvUM0YpsEfAfLxBCYMa7unWy6Xpvs4GwE8Rx6VCclOtxjo2ZkFFibtcSffw4PJlI22lb0aoDCM-n7EOB5ujfsCWSV1cld8o4rArZGvJKSbbiHBuCiCj8pmmjBK8K70N9sgufRs_LrgwYtQJ7DV-WBybiKPSnY7QrToj9dy70mhGAl9YIm0nlZbNWm6W2ODAJM6jaQ_nALTjyVjHAGA3SOLxAzBM3VgIOtT"/>
+<img class="w-6 h-6 rounded-full border-2 border-surface object-cover" data-alt="A small circular avatar portrait of Meera, frontend developer working on sprint demo UI components." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuBLF3zrSsm5F177xGzLJ8vMWpZ12tR-S1majghwdSPG9Log6oWRppCzMDILUUejdaVXQKhTdNiuIp7_x9QuGP1zCzqHpaU_4p54Vsx3oDXqKwlG7_DAsw6JX_NKvxHZgr1n_dxZPNICqoSAWu_SuH9MYMRz0NVtTS4DIHc8FbUzl4csEkjBZk-bbuRbtd-C6JJrzQi9jaZHDx4FoEoH67uyTBO5dB2VDnQgGEjSgR"/>
+</div>
+<span>3 engineers assigned</span>
+</div>
+</div>
+<!-- Milestone 2: Final Submission & Review -->
+<div class="p-4 rounded-lg bg-surface-container border border-amber-500/30 space-y-3">
+<div class="flex items-start justify-between">
+<div>
+<div class="flex items-center gap-2">
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Final Submission &amp; Review</h3>
+<span class="text-mono-xs font-mono-xs px-2 py-0.5 rounded bg-surface-variant text-outline">Due in 21 days (Nov 5)</span>
+</div>
+<span class="text-body-sm font-body-sm text-outline">Complete audit, security checklist, and automated smoke test validation</span>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30 text-mono-xs font-mono-xs font-medium">
+<span class="material-symbols-outlined text-xs" data-icon="warning">warning</span>
+                  At risk (3 blocked PRs)
+                </span>
+</div>
+<!-- Progress bar & Task metrics -->
+<div class="space-y-1.5">
+<div class="flex items-center justify-between text-mono-xs font-mono-xs">
+<span class="text-on-surface-variant font-medium">7/20 tasks done</span>
+<span class="text-amber-400 font-bold">35% complete</span>
+</div>
+<div class="w-full bg-surface-container-highest h-2 rounded-full overflow-hidden">
+<div class="bg-amber-400 h-full w-[35%] rounded-full"></div>
+</div>
+</div>
+<!-- Assignee Avatars -->
+<div class="flex items-center justify-between pt-1 text-mono-xs font-mono-xs text-outline">
+<div class="flex items-center -space-x-1.5">
+<div class="w-6 h-6 rounded-full bg-surface-variant border-2 border-surface flex items-center justify-center text-mono-xs text-on-surface font-semibold">ALL</div>
+</div>
+<span class="text-amber-400">Requires resolving backend review bottlenecks</span>
+</div>
+</div>
+</div>
+<div class="pt-2 text-right">
+<a class="text-mono-xs font-mono-xs text-primary hover:underline" href="#deadlines">Manage sprint Gantt roadmap →</a>
+</div>
+</div>
+<!-- WIDGET 7: AI SPRINT SUMMARY (6 COLS) -->
+<div class="col-span-6 bg-surface-container-low border border-outline-variant rounded-xl p-5 flex flex-col justify-between shadow-sm relative overflow-hidden">
+<!-- Ambient gradient glow -->
+<div class="absolute -top-16 -right-16 w-48 h-48 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+<!-- Header -->
+<div>
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant/60">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline cursor-grab" data-icon="drag_indicator">drag_indicator</span>
+<span class="material-symbols-outlined text-primary text-lg" data-icon="auto_awesome">auto_awesome</span>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">AI Sprint Summary</h2>
+<span class="text-mono-xs font-mono-xs px-2 py-0.5 rounded-full bg-secondary-container/40 text-secondary border border-secondary/30 font-medium">AI-generated</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-mono-xs font-mono-xs px-2 py-0.5 rounded bg-surface-variant text-outline">Oct 8 – Oct 15, 2024</span>
+<button class="w-7 h-7 rounded border border-outline-variant bg-surface-container flex items-center justify-center text-outline hover:text-on-surface hover:bg-surface-container-high transition-colors" title="Regenerate summary">
+<span class="material-symbols-outlined text-sm" data-icon="refresh">refresh</span>
+</button>
+</div>
+</div>
+<!-- Content Prose -->
+<div class="mt-4 p-4 rounded-lg bg-surface-container border border-outline-variant/60 relative">
+<p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">
+                Team velocity increased by <strong class="text-tertiary">14%</strong> with strong contributions on frontend auth refactoring. However, a PR review bottleneck is developing around <code class="text-mono-xs font-mono-xs bg-surface-variant px-1.5 py-0.5 rounded text-primary">api-service</code> with 2 blockers awaiting reviewer approval. Recommend resolving <strong>PR #84</strong> and merging CI fixes before tomorrow's standup to avoid deadline slippage.
+              </p>
+</div>
+<!-- Key Takeaways Bullet Tags -->
+<div class="mt-4 space-y-2">
+<span class="text-label-caps font-label-caps text-outline uppercase tracking-wider">Key Takeaways</span>
+<div class="flex flex-wrap gap-2 pt-1">
+<div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container border border-outline-variant text-body-sm font-body-sm text-on-surface">
+<span>🚀</span>
+<span>Auth flow 80% ready</span>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-body-sm font-body-sm text-amber-300">
+<span>⚠️</span>
+<span>Backend review bottleneck</span>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-tertiary-container/20 border border-tertiary/30 text-body-sm font-body-sm text-tertiary">
+<span>✅</span>
+<span>24 PRs merged this cycle</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom micro-bar -->
+<div class="pt-4 mt-2 border-t border-outline-variant/60 flex items-center justify-between text-mono-xs font-mono-xs text-outline">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="psychology">psychology</span>
+              Trained on TeamPulse Git telemetry • Updated 12m ago
+            </span>
+<button class="text-primary hover:underline flex items-center gap-1">
+<span>Export Standup Digest</span>
+<span class="material-symbols-outlined text-xs" data-icon="north_east">north_east</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Developer Metadata -->
+<footer class="px-margin-desktop py-4 border-t border-outline-variant flex items-center justify-between text-mono-xs font-mono-xs text-outline bg-surface-container-lowest">
+<div class="flex items-center gap-4">
+<span>TeamPulse v2.4.0-prod</span>
+<span>•</span>
+<span>Connected to GitHub Enterprise (github.com/org/frontend-app)</span>
+<span>•</span>
+<span class="flex items-center gap-1 text-tertiary">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+          All systems operational
+        </span>
+</div>
+<div class="flex items-center gap-3">
+<a class="hover:text-on-surface transition-colors" href="#docs">API Docs</a>
+<span>•</span>
+<a class="hover:text-on-surface transition-colors" href="#shortcuts">Shortcuts</a>
+<span>•</span>
+<a class="hover:text-on-surface transition-colors" href="#support">Support</a>
+</div>
+</footer>
+</div>
+</body></html>
