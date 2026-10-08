@@ -1096,4 +1096,40 @@
 </div>
 </footer>
 </div>
+<script>
+<script>
+  // Find the progress bar and the text label next to it
+  const progressFill = document.querySelector('.bar-68');
+  // Assumes your text is inside a class named 'metric-value' or similar label
+  const percentText = document.querySelector('.metric-header span:last-child'); 
+
+  if (progressFill) {
+    // Wait for the 2-second CSS animation to finish loading
+    progressFill.addEventListener('animationend', () => {
+      if (percentText) {
+        percentText.textContent = "100%";
+        percentText.style.color = "#10b981"; /* Turns text green to match */
+        percentText.style.transition = "color 0.3s ease";
+      }
+    });
+  }
+
+  // Monitor sidebar element changes
+  const navButtons = document.querySelectorAll('.nav-btn, [data-target]');
+  const dashboardPanels = document.querySelectorAll('.tab-panel, [id]');
+
+  navButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      navButtons.forEach(btn => btn.classList.remove('active'));
+      dashboardPanels.forEach(panel => panel.classList.remove('active'));
+
+      button.classList.add('active');
+      const targetId = button.getAttribute('data-target');
+      if(targetId) {
+        document.getElementById(targetId).classList.add('active');
+      }
+    });
+  });
+</script>
+
 </body></html>
